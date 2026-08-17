@@ -222,10 +222,10 @@ Bu dört adımın birleşimi, ham YOLO kutusunu güvenilir bir anomali kararına
 ### Gereksinimler
 
 ```bash
-pip install ultralytics opencv-python fastapi uvicorn paho-mqtt fastapi-mqtt
+pip install -r requirements.txt
 ```
 
-> Not: TensorRT dönüşümü ve INT8 kalibrasyonu için CUDA destekli bir GPU (proje Tesla T4 üzerinde geliştirilmiştir) ve uyumlu bir TensorRT kurulumu gereklidir. Notebook'lar bu nedenle Google Colab (GPU runtime) üzerinde çalıştırılacak şekilde tasarlanmıştır.
+> Not: `requirements.txt` içindeki `onnxruntime-gpu` ve `tensorrt` paketleri CUDA destekli bir GPU gerektirir (proje Tesla T4 üzerinde geliştirilmiştir). Sadece FastAPI backend + MQTT/WebSocket katmanını (`main.py`) çalıştırmak için bu iki paket şart değildir. Notebook'lar Google Colab (GPU runtime) üzerinde çalıştırılacak şekilde tasarlanmıştır.
 
 ### Genel Çalıştırma Adımları
 

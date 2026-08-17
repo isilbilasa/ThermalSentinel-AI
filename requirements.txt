@@ -1,0 +1,24 @@
+# ThermalSentinel-AI - Python bagimliliklari
+#
+# Not: asagidaki "Model optimizasyonu" grubu (onnxruntime-gpu, tensorrt) CUDA uyumlu
+# bir GPU ortami gerektirir (bu proje Google Colab / Tesla T4 uzerinde gelistirildi).
+# Sadece FastAPI backend + MQTT/WebSocket katmanini (main.py) calistirmak icin bu
+# iki paket gerekli degildir.
+
+# --- Cekirdek: model egitimi, inference, hibrit analiz ---
+ultralytics
+opencv-python
+numpy
+torch
+Pillow
+matplotlib
+PyYAML
+
+# --- Edge-to-Cloud: main.py (FastAPI backend + MQTT/WebSocket) ---
+fastapi
+uvicorn
+paho-mqtt
+
+# --- Model optimizasyonu (GPU / CUDA gerektirir) ---
+onnxruntime-gpu
+tensorrt
