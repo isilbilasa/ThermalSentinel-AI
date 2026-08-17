@@ -214,6 +214,9 @@ Bu dört adımın birleşimi, ham YOLO kutusunu güvenilir bir anomali kararına
 | `cleaned_dataset/review_needed/` | Şüpheli/düzeltilmiş veri (3.070 görsel). |
 | `dataset_thermal_camera/` | Orijinal ham veri seti (train 12.023 / val 58 / test 3.522). |
 | `models/` | `baseline_best.pt`, `full_dataset_best.pt`, `yolov8_gold_best.pt`, `yolov8_gold_best.onnx`, `yolov8_gold_best.fp16.onnx`, `yolov8_gold_best_int8.engine`. |
+| `requirements.txt` | Proje bağımlılıkları (`pip install -r requirements.txt`). |
+
+> **Not:** `baseline_images/`, `cleaned_dataset/` ve `dataset_thermal_camera/` klasörleri boyutları nedeniyle `.gitignore` ile hariç tutulmuştur ve bu repoda **bulunmamaktadır**. Veri hazırlama/eğitim adımlarını yeniden çalıştırmak için kendi termal veri setinizi bu klasör yapısıyla eklemeniz gerekir.
 
 ---
 
