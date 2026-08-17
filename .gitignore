@@ -1,0 +1,7 @@
+dataset_thermal_camera/
+cleaned_dataset/
+baseline_images/
+__pycache__/
+.DS_Store
+*.pyc
+.ipynb_checkpoints/

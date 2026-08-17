@@ -1,0 +1,9 @@
+# thermal_gold.yaml (Doğrudan bilgisayarınızdaki klasör yolları)
+path: /Users/isilbilasa/Desktop/thermal_project 
+
+train: cleaned_dataset/verified/images
+val: dataset_thermal_camera/val/images
+test: dataset_thermal_camera/test/images
+
+names:
+  0: human

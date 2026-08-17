@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Canlı Termal Telemetri Paneli</title>
+    <style>
+        body { font-family: sans-serif; background-color: #121212; color: #fff; padding: 20px; }
+        #status { padding: 10px; font-weight: bold; border-radius: 5px; margin-bottom: 15px; display: inline-block; }
+        .online { background-color: #2e7d32; color: white; }
+        .offline { background-color: #c62828; color: white; }
+        #log { background: #1e1e1e; border: 1px solid #333; padding: 15px; height: 450px; overflow-y: scroll; font-family: monospace; }
+        .card { background: #2a2a2a; padding: 8px; margin-bottom: 8px; border-left: 4px solid #00e676; border-radius: 4px; }
+        .alarm { border-left-color: #ff1744 !important; background: #3d1a24; }
+    </style>
+</head>
+<body>
+
+    <h2>Canlı Termal Edge Telemetri Akışı</h2>
+    <div id="status" class="offline">WebSocket bağlantısı Yok</div>
+
+    <div id="log"></div>
+
+    <script>
+        const statusDiv = document.getElementById("status");
+        const logDiv = document.getElementById("log");
+        let ws;
+
+        function connect() {
+            ws = new WebSocket("ws://localhost:8000/ws/live-telemetry");
+
+            ws.onopen = function() {
+                statusDiv.innerText = "Canlı bağlantı aktif (Veri Bekleniyor...)";
+                statusDiv.className = "online";
+            };
+
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                
+                const isAlarm = data.anomaly_count > 0;
+                const card = document.createElement("div");
+                card.className = "card " + (isAlarm ? "alarm" : "");
+                
+                card.innerHTML = `
+                    <strong>[Kare #${data.frame_id}]</strong> ${data.timestamp} | 
+                    <strong>Toplam insan:</strong> ${data.total_humans} | 
+                    <strong>Ateşi yüksek (anomali):</strong> <span style="color:${isAlarm ? '#ff5252':'#69f0ae'}">${data.anomaly_count}</span>
+                `;
+                
+                logDiv.appendChild(card);
+                logDiv.scrollTop = logDiv.scrollHeight; // Otomatik aşağı kaydır
+            };
+
+            ws.onclose = function() {
+                statusDiv.innerText = "Bağlantı koptu! yeniden bağlanılıyor...";
+                statusDiv.className = "offline";
+                setTimeout(connect, 2000); // koptuysa 2 sn sonra tekrar dener
+            };
+        }
+
+        connect();
+    </script>
+</body>
+</html>
